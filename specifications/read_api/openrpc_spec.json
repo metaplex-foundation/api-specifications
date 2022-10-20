@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://rpc.metaplex.com/this_is_fake"
+      "url": "https://fake.read-api.metaplex.com/"
     }
   ],
   "methods": [
@@ -51,22 +51,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/owner_param"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/asset_sort_by"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/limit"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/page"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/before"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/after"
+          "$ref": "#/components/contentDescriptors/gboParams"
         }
       ],
       "result": {
@@ -89,7 +74,7 @@
     },
     {
       "name": "get_listed_assets_by_owner",
-      "summary": "Gets a List of assets ids that are for sale and where they are on sale",
+      "summary": "Gets a List of assets ids that are for sale for this owner",
       "tags": [
         {
           "name": "sales"
@@ -97,22 +82,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/owner_param"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/asset_sort_by"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/limit"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/page"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/before"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/after"
+          "$ref": "#/components/contentDescriptors/gboParams"
         }
       ],
       "result": {
@@ -135,7 +105,7 @@
     },
     {
       "name": "get_offers_by_owner",
-      "summary": "Gets a List of assets ids that are for sale and where they are on sale",
+      "summary": "Gets a List offers on assets owner by this owner",
       "tags": [
         {
           "name": "sales"
@@ -143,22 +113,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/owner_param"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/offer_sort_by"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/limit"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/page"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/before"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/after"
+          "$ref": "#/components/contentDescriptors/goboParams"
         }
       ],
       "result": {
@@ -189,22 +144,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/group_expression"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/asset_sort_by"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/limit"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/page"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/before"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/after"
+          "$ref": "#/components/contentDescriptors/gbgParams"
         }
       ],
       "result": {
@@ -221,22 +161,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/creator_expression"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/asset_sort_by"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/limit"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/page"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/before"
-        },
-        {
-          "$ref": "#/components/contentDescriptors/after"
+          "$ref": "#/components/contentDescriptors/gbcParams"
         }
       ],
       "result": {
@@ -258,38 +183,7 @@
       ]
     },
     {
-      "name": "get_sales_stats_by_collection",
-      "summary": "Gets a List of assets based on a group expression where the key must be colletion",
-      "tags": [
-        {
-          "name": "sales"
-        }
-      ],
-      "params": [
-        {
-          "$ref": "#/components/contentDescriptors/group_expression"
-        }
-      ],
-      "result": {
-        "$ref": "#/components/contentDescriptors/collectionFloorStats"
-      },
-      "errors": [
-        {
-          "code": 500,
-          "message": "server error"
-        },
-        {
-          "code": 400,
-          "message": "invalid request $msg"
-        },
-        {
-          "code": 429,
-          "message": "slow down sheesh"
-        }
-      ]
-    },
-    {
-      "name": "search_assets",
+      "name": "search_assets_v1",
       "summary": "Search Api for Assets",
       "tags": [
         {
@@ -337,6 +231,95 @@
   ],
   "components": {
     "contentDescriptors": {
+      "gboParams": {
+        "name": "getByOwnerParams",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "owner": {
+              "$ref": "#/components/contentDescriptors/owner_param"
+            },
+            "sort": {
+              "$ref": "#/components/contentDescriptors/asset_sort_by"
+            },
+            "pagination": {
+              "$ref": "#/components/contentDescriptors/pagination"
+            }
+          }
+        }
+      },
+      "goboParams": {
+        "name": "getOffersByOwnerParams",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "owner": {
+              "$ref": "#/components/contentDescriptors/owner_param"
+            },
+            "sort": {
+              "$ref": "#/components/contentDescriptors/offer_sort_by"
+            },
+            "pagination": {
+              "$ref": "#/components/contentDescriptors/pagination"
+            }
+          }
+        }
+      },
+      "gbgParams": {
+        "name": "getAssetsByGroup",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "group_expression": {
+              "$ref": "#/components/contentDescriptors/group_expression"
+            },
+            "sort": {
+              "$ref": "#/components/contentDescriptors/asset_sort_by"
+            },
+            "pagination": {
+              "$ref": "#/components/contentDescriptors/pagination"
+            }
+          }
+        }
+      },
+      "gbcParams": {
+        "name": "getAssetsByCreator",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "group_expression": {
+              "$ref": "#/components/contentDescriptors/creator_expression"
+            },
+            "sort": {
+              "$ref": "#/components/contentDescriptors/asset_sort_by"
+            },
+            "pagination": {
+              "$ref": "#/components/contentDescriptors/pagination"
+            }
+          }
+        }
+      },
+      "pagination": {
+        "name": "pagination",
+        "description": "Page or Cursor based pagination",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "$ref": "#/components/contentDescriptors/limit"
+            },
+            "page": {
+              "$ref": "#/components/contentDescriptors/page"
+            },
+            "before": {
+              "$ref": "#/components/contentDescriptors/before"
+            },
+            "after": {
+              "$ref": "#/components/contentDescriptors/after"
+            }
+          }
+        }
+      },
       "collectionFloorStats": {
         "name": "collection_floor_price",
         "description": "A paged an array of assets",
@@ -432,7 +415,7 @@
         "schema": {
           "type": "string"
         },
-        "summary": "Examples: `collection:ueyrotot89toiueltoerhotuiy`, `trait.fire:true`"
+        "summary": "Examples: `collection:ueyrotot89toiueltoerhotuiy`"
       },
       "creator_expression": {
         "name": "creator_expression",
@@ -498,7 +481,7 @@
       },
       "asset_sort_by": {
         "name": "sort_by",
-        "description": "How many items to return at one time (max 1000)",
+        "description": "Sort Asset List",
         "required": false,
         "schema": {
           "type": "string",
@@ -511,7 +494,7 @@
       },
       "offer_sort_by": {
         "name": "sort_by",
-        "description": "How many items to return at one time (max 1000)",
+        "description": "Sort Asset Offer List",
         "required": false,
         "schema": {
           "type": "string",
@@ -629,6 +612,20 @@
           "id": {
             "type": "string"
           },
+          "additional_identifiers": {
+            "type": "object",
+            "properties": {
+              "metadata": {
+                "type": "string"
+              },
+              "edition": {
+                "type": "string"
+              },
+              "master_edition": {
+                "type": "string"
+              }
+            }
+          },
           "content": {
             "type": "object",
             "required": [
@@ -739,6 +736,15 @@
               },
               "compressed": {
                 "type": "boolean"
+              },
+              "asset_hash": {
+                "type": "string"
+              },
+              "creator_hash": {
+                "type": "string"
+              },
+              "metadata_hash": {
+                "type": "string"
               }
             }
           },
